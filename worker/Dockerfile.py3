@@ -5,10 +5,10 @@
 # please follow docker best practices
 # https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/
 
-# Provides a base Ubuntu (16.04) image with latest buildbot worker installed
+# Provides a base Ubuntu (18.04) image with latest buildbot worker installed
 # the worker image is not optimized for size, but rather uses ubuntu for wider package availability
 
-FROM        ubuntu:16.04
+FROM        ubuntu:18.04
 MAINTAINER  Buildbot maintainers
 
 
@@ -26,7 +26,9 @@ RUN         apt-get update && \
     build-essential \
     git \
     subversion \
+    python3 \
     python3-dev \
+    python3-pip\
     libffi-dev \
     libssl-dev \
     python3-setuptools \
@@ -37,9 +39,8 @@ RUN         apt-get update && \
     # so we need to simulate that here.  See https://github.com/Yelp/dumb-init
     curl https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64.deb -Lo /tmp/init.deb && dpkg -i /tmp/init.deb &&\
     # ubuntu pip version has issues so we should use the official upstream version it: https://github.com/pypa/pip/pull/3287
-    easy_install3 pip && \
     # Install required python packages, and twisted
-    pip --no-cache-dir install 'twisted[tls]' && \
+    pip3 --no-cache-dir install 'twisted[tls]' && \
     mkdir /buildbot &&\
     useradd -ms /bin/bash buildbot
 

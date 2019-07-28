@@ -6,7 +6,7 @@
 # Provides a base Ubuntu (16.04) image with latest buildbot worker installed
 # the worker image is not optimized for size, but rather uses ubuntu for wider package availability
 
-FROM        ubuntu:16.04
+FROM        ubuntu:18.04
 MAINTAINER  Buildbot maintainers
 
 
